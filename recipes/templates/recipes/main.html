@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Recipe List</title>
+		<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="static/recipes/css/styles.css" />
+	</head>
+
+<h1>Recipes</h1>   {% comment%} HTML tag for heading  {% endcomment%}
+
+   <ul>
+    <li>{% for object in object_list %} {% comment%} now go through the list element-by-element  {% endcomment%}
+   <br>
+       <img class="list-image" src="{{object.pic.url}}" width="150" height="150"/> </br> {% comment%} display the picture of recipe  {% endcomment%}
+        <a href ="{{object.get_absolute_url}}"> {% comment%} add links to recipe names  {% endcomment%}
+        {{object.name}} {% comment%} print the name of recipe  {% endcomment%}</a>
+        </li>
+       </ul>
+   {% endfor %}

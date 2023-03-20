@@ -1,0 +1,43 @@
+header {
+  font-family: 'Lora', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+h2 {
+  font-family: 'Lora', sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navigation-list {
+  list-style-type: none;
+  display: flex;
+}
+
+.nav-list__item:first-child {
+  flex: 0 1 75%;
+}
+
+.nav-list__item:last-child {
+  margin-left: 20px;
+}
+
+
+footer {
+  font-size: 12px;
+  color: gray;
+}
+
+.img-credit {
+  color: gray;
+  text-decoration: underline;
+}
+
+.list-image {
+  border-radius: 20%;
+}

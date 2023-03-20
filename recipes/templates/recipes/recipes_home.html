@@ -1,9 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-   <title>
-       Recipe Home
-   </title>
-   <body>
-       <b>Welcome to our Recipe App</b>
-   </body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Recipe Home</title>
+		<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+
+		<!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" /> -->
+		<link rel="stylesheet" type="text/css" href="static/recipes/css/styles.css" />
+	</head>
+
+  <header class="page-header">
+		<nav class="main-navigation">
+			<ul role="menubar" class="navigation-list">
+				<li role="presentation" class="nav-list__item">
+					<a role="menuitem">Let's Eat</a>
+				</li>
+				<li role="presentation">
+					<a role="menuitem" class="nav-list__item">Recipes</a>
+				</li>
+				<li role="presentation" class="nav-list__item">
+					<a role="menuitem">Login</a>
+				</li>
+			</ul>
+		</nav>
+  </header>
+  <body>
+    <img src="{% static 'recipes/images/lets-eat-home.jpg' %}" alt="home" width="auto" height="450">
+  </body>
+  <footer>
+    <a class="img-credit" href="https://www.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_6713738.htm#page=3&query=food&position=23&from_view=search&track=sph">Image by timolina</a> on Freepik
+  </footer>
 </html>
