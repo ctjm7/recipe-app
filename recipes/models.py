@@ -10,6 +10,7 @@ class Recipe(models.Model):
     description = models.TextField(default='')
     pic = models.ImageField(upload_to='recipes', default='no_pic.jpeg')
 
+    @property
     def calculate_difficulty(self):
       ingredients = self.ingredients.split(', ')
       if self.cooking_time < 10 and len(ingredients) < 4:

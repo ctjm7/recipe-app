@@ -1,11 +1,45 @@
-<h2>{{object.name}}</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Recipe Details</title>
+		<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap"  rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css'%}">
+	</head>
 
-<img src="{{object.pic.url}}" width="150" height="150" /></br>
+  <header class="page-header">
+		<nav class="main-navigation">
+			<ul role="menubar" class="navigation-list">
+				<li role="presentation" class="nav-list__item">
+					<a href="{%url 'recipes:home' %}"role="menuitem">Let's Eat</a>
+				</li>
+				<li role="presentation" class="nav-list__item">
+					<a href="{%url 'recipes:list' %}" role="menuitem">Recipes</a>
+				</li>
+        <li role="presentation" class="nav-list__item">
+					<a href="{%url 'logout' %}" role="menuitem">Logout</a>
+				</li>
+			</ul>
+		</nav>
+    <hr>
+  </header>
+  <body>
+    <h2>{{object.name}}</h2>
 
-<b>Cooking Time: </b> {{object.cooking_time}} <br>
+      <div class="detail-info">
+        <img class="detail-img" src="{{object.pic.url}}" width="200" height="200" />
+        <div class="detail-desc">
+          <b>Cooking Time: </b> {{object.cooking_time}} minutes<br>
+          <br>
+          <b>Difficulty: </b> {{object.calculate_difficulty}} <br>
+          <br>
+          <b>Ingredients: </b> {{object.ingredients}} <br>
+          <br>
+          <b>Description: </b> {{object.description | linebreaks}} <br>
+        </div>
+      </div>
+  </body>
 
-<b>Difficulty: </b> {{object.difficulty}} <br>
-
-<b>Ingredients: </b> {{object.ingredients}} <br>
-
-<b>Description: </b> {{object.description}} <br>
+</html>
