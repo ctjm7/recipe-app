@@ -41,7 +41,7 @@ a:hover{
   flex: 0 1 75%;
 }
 
-.nav-list__item:last-child {
+.nav-list__item:last-child, .nav-search {
   margin-left: 20px;
 }
 
