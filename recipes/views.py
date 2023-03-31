@@ -29,6 +29,7 @@ def search(request):
     all_qs = Recipe.objects.all()
     all_df = pd.DataFrame(all_qs.values())
 
+    #function for making id in table clickable to recipe details
     def create_clickable(id):
                 url_template = '<a href="/list/{id}">{id}</a>'.format(id=id)
                 return url_template
@@ -39,10 +40,7 @@ def search(request):
         chart_type = request.POST.get('chart_type')
 
         #capitalize recipe name input to retrieve data
-        if ' ' in recipe_name:
-            recipe_name = string.capwords(recipe_name)
-        else:
-            recipe_name = recipe_name.capitalize()
+        recipe_name = string.capwords(recipe_name)
 
         #retrieve data on input recipe name
         qs = Recipe.objects.filter(name=recipe_name)
@@ -70,7 +68,7 @@ def search(request):
             recipe_df = recipe_df.to_html(columns=['id', 'name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
 
     all_df['id'] = all_df['id'].apply(create_clickable)
-    
+
     #gives table of all recipes if there is no input recipe by user
     all_df = all_df.to_html(columns=['id', 'name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
 
