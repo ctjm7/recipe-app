@@ -29,10 +29,10 @@ def search(request):
     all_qs = Recipe.objects.all()
     all_df = pd.DataFrame(all_qs.values())
 
-    #function for making id in table clickable to recipe details
-    def create_clickable(id):
-                url_template = '<a href="/list/{id}">{id}</a>'.format(id=id)
-                return url_template
+    #function for making name in table clickable to recipe details
+    def create_clickable(data):
+        url_template = ('<a href="/list/{}">{}</a>').format(data['id'], data['name'])
+        return url_template
 
     #check if the button is clicked
     if request.method == 'POST':
@@ -47,9 +47,10 @@ def search(request):
         if qs:
             recipe_df = pd.DataFrame(qs.values())
 
-            #get all ingredients from all recipes and create one list
+            #creates a list out of the ingredients string in each recipe
             all_df['ingredients'] = all_df['ingredients'].str.split(', ')
-            all_ingredients = sum(all_df['ingredients'], [])
+            #flattens nested lists to one list of all ingredients using list comprehension
+            all_ingredients = [ingredient for sublist in all_df['ingredients'] for ingredient in sublist]
 
             #makes list of ingredients from input recipe
             ingredients_list = recipe_df.loc[0, 'ingredients'].split(', ')
@@ -62,15 +63,17 @@ def search(request):
 
             chart = get_chart(chart_type, ingredients_list, number_recipes, labels=ingredients_list)
 
-            recipe_df['id'] = recipe_df['id'].apply(create_clickable)
+            recipe_df['name'] = recipe_df.apply(create_clickable, axis=1)
 
             #gives table of input recipe info
-            recipe_df = recipe_df.to_html(columns=['id', 'name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
+            recipe_df = recipe_df.to_html(columns=['name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
 
-    all_df['id'] = all_df['id'].apply(create_clickable)
+    #all_df['name'] = all_df.apply(lambda row : ('<a href="/list/' + str(row['id']) + '">' + row['name'] + '</a>'), axis=1)
+
+    all_df['name'] = all_df.apply(create_clickable, axis=1)
 
     #gives table of all recipes if there is no input recipe by user
-    all_df = all_df.to_html(columns=['id', 'name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
+    all_df = all_df.to_html(columns=['name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
 
     #pack up data to be sent to template in the context dictionary
     context = {
