@@ -2,7 +2,7 @@
 
 This is an application built with Python that utilizes the Django Framework.
 
-It allows users to create an account. They can add and modify recipes in their account. The user will input recipe name, ingredients and cooking time. The app will calculate the difficulty of the recipe based on the input. The user will be able to search recipes by ingredients.
+It allows users to create an account. They can add and modify recipes in their account. The user will input recipe name, ingredients and cooking time. The app will calculate the difficulty of the recipe based on the input. The user will be able to search for a recipe. A chart will be displayed with the number of recipes containing the ingredients in the searched recipe.
 
 ## Setting up your environment
 
@@ -15,10 +15,10 @@ It allows users to create an account. They can add and modify recipes in their a
       a) pillow
       b) pandas
       c) matplotlib
-6. Create a superuser
+6. Convert class models into database tables with `python manage.py makemigrations` followed by `python manage.py migrate`
+7. Create a superuser
       a) In project root directory execute command `python manage.py createsuperuser`
       b) `python manage.py runserver` go to “http://127.0.0.1:8000/admin/” to login
-7. Convert class models into database tables with `python manage.py makemigrations` followed by `python manage.py migrate`
 8. Add data from the Django site admin with a few recipes after running server `python manage.py runserver` and go to “http://127.0.0.1:8000/admin/”
 
 ## Dependencies

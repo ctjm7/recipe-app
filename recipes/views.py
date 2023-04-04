@@ -25,6 +25,7 @@ def search(request):
     all_df = None
     chart = None
     number_recipes = []
+    all_ingredients = []
 
     all_qs = Recipe.objects.all()
     all_df = pd.DataFrame(all_qs.values())
@@ -49,8 +50,11 @@ def search(request):
 
             #creates a list out of the ingredients string in each recipe
             all_df['ingredients'] = all_df['ingredients'].str.split(', ')
-            #flattens nested lists to one list of all ingredients using list comprehension
-            all_ingredients = [ingredient for sublist in all_df['ingredients'] for ingredient in sublist]
+
+            #flattens list to one list of all ingredients
+            for sublist in all_df['ingredients']:
+                for ingredient in sublist:
+                    all_ingredients.append(ingredient)
 
             #makes list of ingredients from input recipe
             ingredients_list = recipe_df.loc[0, 'ingredients'].split(', ')
@@ -67,8 +71,6 @@ def search(request):
 
             #gives table of input recipe info
             recipe_df = recipe_df.to_html(columns=['name', 'cooking_time', 'ingredients'], col_space=55,index=False, justify='left',render_links=True, escape=False)
-
-    #all_df['name'] = all_df.apply(lambda row : ('<a href="/list/' + str(row['id']) + '">' + row['name'] + '</a>'), axis=1)
 
     all_df['name'] = all_df.apply(create_clickable, axis=1)
 

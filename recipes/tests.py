@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Recipe
 from .forms import RecipeSearchForm
+from django.http import HttpRequest
 
 # Create your tests here.
 class RecipeModelTest(TestCase):
@@ -36,18 +37,24 @@ class RecipeModelTest(TestCase):
        self.assertEqual(recipe.calculate_difficulty(), 'Easy')
 
 class RecipeFormTest(TestCase):
+    form = RecipeSearchForm()
+
     def test_valid_form(self):
-       form = RecipeSearchForm(data={'recipe_name': 'latte', 'chart_type': '#1'})
-       self.assertTrue(form.is_valid())
+       form_info = RecipeSearchForm(data={'recipe_name': 'latte', 'chart_type': '#1'})
+       self.assertTrue(form_info.is_valid())
 
     def test_invalid_form(self):
-       form =RecipeSearchForm()
-       self.assertFalse(form.is_valid())
+       self.assertFalse(self.form.is_valid())
 
     def test_recipe_name(self):
-       form = RecipeSearchForm()
-       self.assertIn('recipe_name', form.as_p())
+       self.assertIn('recipe_name', self.form.as_p())
 
     def test_chart_type(self):
-       form = RecipeSearchForm()
-       self.assertIn('chart_type', form.as_p())
+       self.assertIn('chart_type', self.form.as_p())
+
+    def test_declared_field(self):
+       self.assertIn('recipe_name', self.form.fields)
+
+    def test_recipe_name_max_length(self):
+       max_length = self.form.fields.__getitem__('recipe_name').max_length
+       self.assertEqual(max_length, 120)
