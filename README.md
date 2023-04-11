@@ -15,7 +15,7 @@ It allows users to create an account. They can add and modify recipes in their a
       a) pillow
       b) pandas
       c) matplotlib
-6. Convert class models into database tables with `python manage.py makemigrations` followed by `python manage.py migrate`
+6. Convert class models into database tables with `python manage.py migrate`
 7. Create a superuser
       a) In project root directory execute command `python manage.py createsuperuser`
       b) `python manage.py runserver` go to “http://127.0.0.1:8000/admin/” to login

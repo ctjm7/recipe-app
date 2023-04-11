@@ -1,7 +1,6 @@
 from django.test import TestCase
 from .models import Recipe
-from .forms import RecipeSearchForm
-from django.http import HttpRequest
+from .forms import RecipeSearchForm, AddRecipeForm
 
 # Create your tests here.
 class RecipeModelTest(TestCase):
@@ -11,7 +10,7 @@ class RecipeModelTest(TestCase):
     def test_recipe_name(self):
        recipe = Recipe.objects.get(id=1)
        field_label = recipe._meta.get_field('name').verbose_name
-       self.assertEqual(field_label, 'name')
+       self.assertEqual(field_label, 'Name')
 
     def test_recipe_name_max_length(self):
        recipe = Recipe.objects.get(id=1)
@@ -58,3 +57,24 @@ class RecipeFormTest(TestCase):
     def test_recipe_name_max_length(self):
        max_length = self.form.fields.__getitem__('recipe_name').max_length
        self.assertEqual(max_length, 120)
+
+class AddRecipeTest(TestCase):
+    form = AddRecipeForm()
+
+    def test_valid_form(self):
+       form_info = AddRecipeForm(data={'add_name': 'tea', 'add_ingredients': 'Tea, Water, Sugar', 'add_cooking_time': 5, 'add_description': 'boil water'})
+       self.assertTrue(form_info.is_valid())
+
+    def test_invalid_form(self):
+       self.assertFalse(self.form.is_valid())
+
+    def test_recipe_name_max_length(self):
+       max_length = self.form.fields.__getitem__('add_name').max_length
+       self.assertEqual(max_length, 120)
+
+    def test_ingredients_max_length(self):
+       max_length = self.form.fields.__getitem__('add_ingredients').max_length
+       self.assertEqual(max_length, 350)
+
+    def test_declared_field(self):
+       self.assertIn('add_description', self.form.fields)

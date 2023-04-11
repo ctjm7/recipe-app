@@ -40,3 +40,6 @@ def logout_view(request):
   #pre-defined Django function to logout
   logout(request)
   return render(request, 'auth/success.html')
+
+def about(request):
+  return render(request, 'auth/about.html')

@@ -4,9 +4,9 @@ from django.shortcuts import reverse
 # Create your models here.
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=120)
-    cooking_time = models.PositiveIntegerField(help_text='in minutes')
-    ingredients = models.CharField(max_length=350)
+    name = models.CharField(max_length=120, verbose_name='Name')
+    cooking_time = models.PositiveIntegerField(help_text='in minutes', verbose_name='Cooking Time')
+    ingredients = models.CharField(max_length=350, verbose_name='Ingredients')
     description = models.TextField(default='')
     pic = models.ImageField(upload_to='recipes', default='no_pic.jpeg')
 
